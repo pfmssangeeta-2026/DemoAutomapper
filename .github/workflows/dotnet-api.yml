@@ -23,7 +23,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-
+      - name: List Files
+        run: |
+          pwd
+          find . -name "*.sln"
+          find . -name "*.csproj"
       - name: Restore Packages
         run: dotnet restore
 
