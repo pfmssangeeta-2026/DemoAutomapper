@@ -39,12 +39,18 @@ jobs:
 
       - name: Publish API
         run: dotnet publish DemoAutpmapper.csproj -c Release -o publish
+     
+      - name: Verify Publish Files
+        run: |
+          echo "Published files:"
+          ls -la publish
+          find publish -type f
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: dotnet-api
-          path: publish
+          path: publish/
 
   deploy:
     needs: build
@@ -56,6 +62,12 @@ jobs:
         with:
           name: dotnet-api
           path: publish
+          
+      - name: Verify Downloaded Files
+        run: |
+          echo "Downloaded files:"
+          ls -la publish
+          find publish -type f
 
       - name: Copy Files to Server
         uses: appleboy/scp-action@v0.1.7
