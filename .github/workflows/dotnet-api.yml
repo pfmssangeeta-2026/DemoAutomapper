@@ -3,8 +3,7 @@ name: .NET Core API CI/CD
 on:
   push:
     branches:
-      - development
-      - main
+        - main
 
   pull_request:
     branches:
@@ -83,3 +82,6 @@ jobs:
           script: |
             sudo systemctl restart mymapperapi.service
             sudo systemctl status mymapperapi.service --no-pager
+      - name: API Smoke Test
+        run: |
+            curl -f http://${{ secrets.SERVER_HOST }}/api/values
